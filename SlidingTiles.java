@@ -8,7 +8,8 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Button;
-
+import javafx.scene.paint.Color;
+import javafx.scene.effect.DropShadow;
 
 public class SlidingTiles extends Application {
 
@@ -58,21 +59,28 @@ public class SlidingTiles extends Application {
         // Creates gridpane object
         GridPane gridpane = new GridPane();
         Button[][] buttons = new Button[numRows][numCols];
-        
+
+
+        // drop shadow effect
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.CORNFLOWERBLUE);
+
+
         // resizes buttons and creates buttons
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 buttons[i][j] = new Button();
                 gridpane.add(buttons[i][j], j, i);
                 buttons[i][j].setMinSize(75,75);
-                buttons[i][j].setStyle("-fx-background-color: #FFFFFF;");
+                buttons[i][j].setStyle("-fx-base-color: BLUE;");
+                buttons[i][j].setEffect(shadow);
             }
         }
         updateButtons(buttons);
 
         /* * * * * * Left slide * * * * * */
 
-        for (int i = 0; i < numRows; i++) {
+        for (int i = 1; i < numRows - 1; i++) {
             buttons[i][0].setOnAction(actionEvent -> {
  
                 // handle method body
@@ -94,7 +102,7 @@ public class SlidingTiles extends Application {
 
        /* * * * * * Right slide * * * * * */
 
-        for (int i = 0; i < numRows; i++) {
+        for (int i = 1; i < numRows - 1; i++) {
              buttons[i][numCols - 1].setOnAction(actionEvent -> {
             
                 // handle method body
@@ -123,7 +131,7 @@ public class SlidingTiles extends Application {
 
         /* * * * * * Up slide * * * * * * */
 
-        for (int i = 0; i < numCols; i++) {
+        for (int i = 1; i < numCols - 1; i++) {
             buttons[0][i].setOnAction(actionEvent -> {
             
                 // handle method body
@@ -154,7 +162,7 @@ public class SlidingTiles extends Application {
 
         /* * * * * * Down slide * * * * * */
         
-        for (int i = 0; i < numCols; i++) {
+        for (int i = 1; i < numCols - 1; i++) {
             buttons[numRows - 1][i].setOnAction(actionEvent -> {
             
                 // handle method body
@@ -233,6 +241,25 @@ public class SlidingTiles extends Application {
                             buttons[row][col].setStyle("-fx-background-color: #f8f8f8;");
                             break;
                         case 4: buttons[row][col].setStyle("-fx-background-color: #f0f0f0;");
+                            break;
+                        case 8: buttons[row][col].setStyle("-fx-background-color: #e8e8e8;");
+                            break;
+                        case 16: buttons[row][col].setStyle("-fx-background-color: #F0F8FF;");
+                            break;
+                        // change text color to white here
+                        case 32: buttons[row][col].setStyle("-fx-background-color: #00FFFF;");
+                            break;
+                        case 64: buttons[row][col].setStyle("-fx-background-color: #7FFFD4;");
+                            break;
+                        case 128: buttons[row][col].setStyle("-fx-background-color: #B2FFFF;");
+                            break;
+                        case 256: buttons[row][col].setStyle("-fx-background-color: #00BFFF;");
+                            break;
+                        case 512: buttons[row][col].setStyle("-fx-background-color: #7DF9FF;");
+                            break;
+                        case 1024: buttons[row][col].setStyle("-fx-background-color: #eec0c8;");
+                            break;
+                        case 2048: buttons[row][col].setStyle("-fx-background-color: #FFC0CB;");
                             break;
                     }
 
