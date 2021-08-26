@@ -1,6 +1,7 @@
 # 2048 Clone
+![image](https://user-images.githubusercontent.com/33074434/131042044-61ee6a39-2c3f-447b-81cc-bd46edb96c6b.png)
 
-2048 clone with added diagonal sliding feature.
+JavaFX clone of the popular game '2048'!
 
 ---
 
