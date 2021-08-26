@@ -25,6 +25,7 @@ public class SlidingTiles extends Application {
     private int numRows;
     private int numCols;
 
+
     /** Constructor */
     public SlidingTiles() {
         // randomly sets one box to a 1
@@ -42,8 +43,8 @@ public class SlidingTiles extends Application {
             }
         }
 
-        // randomly assigns a square to be one
-        board[randRow][randCol] = 1;
+        // randomly assigns a square to be a two
+        board[randRow][randCol] = 2;
 
     }
 
@@ -64,13 +65,14 @@ public class SlidingTiles extends Application {
                 buttons[i][j] = new Button();
                 gridpane.add(buttons[i][j], j, i);
                 buttons[i][j].setMinSize(75,75);
+                buttons[i][j].setStyle("-fx-background-color: #FFFFFF;");
             }
         }
         updateButtons(buttons);
 
         /* * * * * * Left slide * * * * * */
 
-        for (int i = 1; i < numRows - 1; i++) {
+        for (int i = 0; i < numRows; i++) {
             buttons[i][0].setOnAction(actionEvent -> {
  
                 // handle method body
@@ -81,7 +83,7 @@ public class SlidingTiles extends Application {
                 }          
            
                 if (shiftIndicator > 0)
-                    randOne(board);  // adds a random one to the board
+                    randTwo(board);  // adds a random one to the board
 
                 updateButtons(buttons);
                 System.out.println(Arrays.deepToString(board)); // for debugging
@@ -92,7 +94,7 @@ public class SlidingTiles extends Application {
 
        /* * * * * * Right slide * * * * * */
 
-        for (int i = 1; i < numRows - 1; i++) {
+        for (int i = 0; i < numRows; i++) {
              buttons[i][numCols - 1].setOnAction(actionEvent -> {
             
                 // handle method body
@@ -110,7 +112,7 @@ public class SlidingTiles extends Application {
                 }          
             
                 if (shiftIndicator > 0)
-                    randOne(board);  // adds a random one to the board
+                    randTwo(board);  // adds a random one to the board
 
             
                 updateButtons(buttons);
@@ -121,7 +123,7 @@ public class SlidingTiles extends Application {
 
         /* * * * * * Up slide * * * * * * */
 
-        for (int i = 1; i < numCols - 1; i++) {
+        for (int i = 0; i < numCols; i++) {
             buttons[0][i].setOnAction(actionEvent -> {
             
                 // handle method body
@@ -140,7 +142,7 @@ public class SlidingTiles extends Application {
                 transpose(board);
             
                 if (shiftIndicator > 0)
-                    randOne(board);  // adds a random one to the board
+                    randTwo(board);  // adds a random one to the board
 
             
                 updateButtons(buttons);
@@ -152,7 +154,7 @@ public class SlidingTiles extends Application {
 
         /* * * * * * Down slide * * * * * */
         
-        for (int i = 1; i < numCols - 1; i++) {
+        for (int i = 0; i < numCols; i++) {
             buttons[numRows - 1][i].setOnAction(actionEvent -> {
             
                 // handle method body
@@ -177,7 +179,7 @@ public class SlidingTiles extends Application {
                 transpose(board);
             
                 if (shiftIndicator > 0)
-                    randOne(board);  // adds a random one to the board
+                    randTwo(board);  // adds a random one to the board
 
             
                 updateButtons(buttons);
@@ -185,16 +187,6 @@ public class SlidingTiles extends Application {
 
             });
         }        
-       
-        
-        /* * * * * * NW slide * * * * * * */
-
-        /* * * * * * NE slide * * * * * * */
-
-        /* * * * * * SE slide * * * * * * */
-
-        /* * * * * * SW slide * * * * * * */
-
 
         // Creates scene of application
         Scene scene = new Scene(gridpane);
@@ -216,16 +208,34 @@ public class SlidingTiles extends Application {
      * @param buttons  the buttons we wish to update
      */
     public void updateButtons(Button[][] buttons) {
+            
+        // temp value of button
+        int tempVal = 0;
 
         // Assigns initial values to the starting board
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
+                tempVal = board[row][col];
+
                 // sets square to be blank if the number is 0
                 if (board[row][col] == 0) {
+                    // updates button text
                     buttons[row][col].setText(" ");
+                    // updates button color
+                    buttons[row][col].setStyle("-fx-background-color: #ffffff;");
                 }
                 else 
-                    buttons[row][col].setText(String.valueOf(board[row][col]));
+                    // updates button text
+                    buttons[row][col].setText(String.valueOf(tempVal));                     
+                    // updates button color
+                    switch (tempVal) {
+                        case 2: 
+                            buttons[row][col].setStyle("-fx-background-color: #f8f8f8;");
+                            break;
+                        case 4: buttons[row][col].setStyle("-fx-background-color: #f0f0f0;");
+                            break;
+                    }
+
             }
         }
     }
@@ -313,7 +323,7 @@ public class SlidingTiles extends Application {
      * 
      * @param boardState  the board we wish to add a one to
      */
-    public void randOne(int[][] boardState) {
+    public void randTwo(int[][] boardState) {
     
         // randomly assigns a 0 square a one
         LinkedList<Integer[]> zeroSquares = new LinkedList<Integer[]>(); // keeps track of the buttons with zeros
@@ -329,7 +339,7 @@ public class SlidingTiles extends Application {
         // randomly chooses a square from the list of zero buttons
         int randIndex = (int) (Math.random() * zeroSquares.size()); 
 
-        boardState[(zeroSquares.get(randIndex))[0].intValue()][(zeroSquares.get(randIndex))[1].intValue()] = 1;
+        boardState[(zeroSquares.get(randIndex))[0].intValue()][(zeroSquares.get(randIndex))[1].intValue()] = 2;
                 
         zeroSquares.clear();
 
