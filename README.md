@@ -7,6 +7,6 @@ JavaFX clone of the popular game '2048'!
 
 ## Usage:
 * Download with `gh repo clone elliottyoon/2048-Diagonal-`
-* Compile with `javac SlidingTiles.java`
+* Compile with `cd src && javac SlidingTiles.java`
 * Run with `java SlidingTiles`
 * Try to get the 2048 tile!
